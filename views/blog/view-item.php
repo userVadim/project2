@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\widgets\ActiveField;
 use yii\helpers\Json;
+use app\models\ImageUploader;
 ?>
 
 <div class="view-item">
@@ -36,7 +37,7 @@ use yii\helpers\Json;
         {
             foreach(Json::decode($item->images) as $img)
             {
-                echo Html::img('@web/uploads/content/'.$img,['height'=>'150px']);
+                echo Html::img(ImageUploader::pathToContent().$img,['height'=>'150px']);
             }
         }
         ?>
