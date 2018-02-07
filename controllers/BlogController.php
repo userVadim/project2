@@ -52,7 +52,6 @@ class BlogController extends Controller {
         {
             $password=$model->password;
             $model->password=Yii::$app->getSecurity()->generatePasswordHash($model->password);
-            $photo->username=$model->username;
             $photo->user_photo=UploadedFile::getInstance($photo, 'user_photo');
             $model->photo=$photo->uploadUserPhoto();
             if($model->save())
@@ -107,14 +106,10 @@ class BlogController extends Controller {
         $blogItem=new BlogItems();
         $images= new ImageUploader();
 
-        
-
         if($blogItem->load(Yii::$app->request->post()) && $blogItem->validate())
         {
-            $images->username=Yii::$app->user->identity->username;
             $images->content_images= UploadedFile::getInstances($images, 'content_images');
             $blogItem->images=$images->uploadContentPhotos();
-
             $blogItem->date=date('Y-m-d H:i:s');
             $blogItem->author=Yii::$app->user->id;
             if($blogItem->save())
